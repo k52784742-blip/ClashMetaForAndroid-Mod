@@ -2,7 +2,7 @@
 agp = "8.8.0"
 kotlin = "2.1.0"
 ksp = "2.1.0-1.0.29"
-// golang = "1.0.4"  // removed - using pre-built libmihomo.so in jniLibs
+# golang = "1.0.4"  # removed - using pre-built libmihomo.so in jniLibs
 coroutine = "1.10.1"
 coreKtx = "1.8.0"
 activity = "1.5.0"
@@ -24,7 +24,7 @@ build-android = { module = "com.android.tools.build:gradle", version.ref = "agp"
 build-kotlin-common = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 build-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 build-ksp = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
-// build-golang = { module = "com.github.kr328.golang:gradle-plugin", version.ref = "golang" }  // removed
+# build-golang = { module = "com.github.kr328.golang:gradle-plugin", version.ref = "golang" }  # removed
 kotlin-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutine" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
