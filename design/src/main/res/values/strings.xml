@@ -236,16 +236,16 @@
     <string name="feedback">Feedback</string>
     <string name="sources">Sources</string>
     <string name="donate">Donate</string>
-    <string name="clash_wiki">Clash Wiki</string>
+    <string name="clash_wiki">Maybe Mod Wiki</string>
     <string name="github_issues">Github Issues</string>
     <string name="google_play">Google Play</string>
-    <string name="clash_meta_core">Clash Meta Core</string>
-    <string name="clash_wiki_url" translatable="false">https://github.com/Dreamacro/clash/wiki</string>
+    <string name="clash_meta_core">Maybe Mod Core</string>
+    <string name="clash_wiki_url" translatable="false">https://t.me/WUM66666666</string>
     <string name="meta_github_url" translatable="false">https://github.com/Maybe/ClashMetaForAndroid-Mod</string>
     <string name="clash_meta_core_url" translatable="false">https://github.com/Maybe/ClashMetaForAndroid-Mod</string>
 
     <string name="tips_properties"><![CDATA[Accept Only <strong>Clash Config</strong>(including <strong>Proxy</strong>/<strong>Rules</strong>)]]></string>
-    <string name="tips_help"><![CDATA[Maybe Mod is a <strong>personal customized build</strong> based on Clash Meta for Android.<br/>Developed by <strong>Maybe</strong>.]]></string>
+    <string name="tips_help"><![CDATA[<strong>Maybe Mod v1.0</strong> is a personal customized build based on Clash Meta for Android.<br/>Developed by <strong>Maybe</strong>.<br/>Contact: <strong>TG @WUM66666666</strong>]]></string>
 
     <string name="google_play_url" translatable="false">https://play.google.com/store/apps/details?id=com.github.kr328.clash</string>
 

@@ -60,6 +60,12 @@ class LargeActionCard @JvmOverloads constructor(
         minimumHeight = context.getPixels(R.dimen.large_action_card_min_height)
         radius = context.getPixels(R.dimen.large_action_card_radius).toFloat()
         elevation = context.getPixels(R.dimen.large_action_card_elevation).toFloat()
-        setCardBackgroundColor(context.resolveThemedColor(com.google.android.material.R.attr.colorSurface))
+
+        // 液态玻璃主题：使用半透明玻璃背景 + 高光描边
+        val glassColor = context.resolveThemedColor(R.attr.colorGlass)
+        val fallbackSurface = context.resolveThemedColor(com.google.android.material.R.attr.colorSurface)
+        setCardBackgroundColor(if (glassColor != 0) glassColor else fallbackSurface)
+        strokeColor = context.resolveThemedColor(R.attr.colorGlassStroke)
+        strokeWidth = context.getPixels(R.dimen.glass_stroke_width)
     }
 }

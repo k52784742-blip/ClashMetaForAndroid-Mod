@@ -24,7 +24,7 @@
         <item name="colorOnSecondary">?attr/colorOnPrimary</item>
         <item name="colorControlActivated">?attr/colorPrimary</item>
         <item name="android:textColor">?attr/colorControlNormal</item>
-        <item name="android:windowBackground">@color/color_light_background</item>
+        <item name="android:windowBackground">@drawable/bg_gradient_light</item>
     </style>
 
     <style name="AppFullScreenDialogDarkBase" parent="Theme.MaterialComponents.Dialog">
@@ -40,7 +40,7 @@
         <item name="colorOnPrimary">@android:color/white</item>
         <item name="colorSurface">@color/color_dark_surface</item>
         <item name="colorControlDisabled">@color/color_dark_control_disabled</item>
-        <item name="android:windowBackground">@color/color_dark_background</item>
+        <item name="android:windowBackground">@drawable/bg_gradient_dark</item>
         <item name="colorGlass">@color/color_glass_dark</item>
         <item name="colorGlassStroke">@color/color_glass_stroke_dark</item>
 

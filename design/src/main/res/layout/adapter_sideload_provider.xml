@@ -14,9 +14,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bg_b"
         android:clickable="true"
         android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:minHeight="@dimen/item_min_height"
         android:paddingVertical="@dimen/item_padding_vertical">
 

@@ -3,14 +3,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/bg_b"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
         android:minHeight="@dimen/item_min_height"
         android:orientation="horizontal"
         android:paddingVertical="@dimen/item_padding_vertical"
-        android:paddingEnd="@dimen/item_tailing_margin">
+        android:paddingEnd="@dimen/item_tailing_margin"
+        android:foreground="?attr/selectableItemBackground">
 
         <View
             android:id="@+id/icon_view"

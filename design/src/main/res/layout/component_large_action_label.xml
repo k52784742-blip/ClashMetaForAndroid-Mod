@@ -6,7 +6,8 @@
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingVertical="@dimen/large_item_padding_vertical">
+        android:paddingVertical="@dimen/large_item_padding_vertical"
+        android:background="@drawable/bg_b" />
 
         <View
             android:id="@+id/icon_view"

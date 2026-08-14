@@ -8,7 +8,9 @@ import com.github.kr328.clash.design.util.resolveThemedColor
 import com.github.kr328.clash.design.util.resolveThemedResourceId
 
 class ProxyViewConfig(val context: Context, var proxyLine: Int) {
+    private val colorGlass = context.resolveThemedColor(R.attr.colorGlass)
     private val colorSurface = context.resolveThemedColor(com.google.android.material.R.attr.colorSurface)
+    private val effectiveGlassBackground = if (colorGlass != 0) colorGlass else colorSurface
 
     val clickableBackground =
         context.resolveThemedResourceId(android.R.attr.selectableItemBackground)
@@ -18,7 +20,7 @@ class ProxyViewConfig(val context: Context, var proxyLine: Int) {
 
     val unselectedControl = context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurface)
     val unselectedBackground: Int
-        get() = if (proxyLine==1) Color.TRANSPARENT else colorSurface
+        get() = if (proxyLine==1) Color.TRANSPARENT else effectiveGlassBackground
 
     val layoutPadding = context.getPixels(R.dimen.proxy_layout_padding).toFloat()
     val contentPadding

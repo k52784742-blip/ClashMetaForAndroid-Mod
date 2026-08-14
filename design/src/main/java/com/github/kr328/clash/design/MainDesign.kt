@@ -75,6 +75,7 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
                 this.contactInfo = context.getString(R.string.about_contact)
             }
 
+            // 使用 Activity 的 AppTheme 以确保 colorGlass/colorGlassStroke 属性可用
             AlertDialog.Builder(context)
                 .setView(binding.root)
                 .show()

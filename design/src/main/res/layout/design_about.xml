@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="@dimen/dialog_padding">
+        android:padding="@dimen/dialog_padding"
+        android:background="@drawable/bg_b">
 
         <View
             android:layout_width="@dimen/about_icon_size"
