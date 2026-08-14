@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="versionName"
+            type="String" />
+        <variable
+            name="authorName"
+            type="String" />
+        <variable
+            name="description"
+            type="String" />
+        <variable
+            name="contactInfo"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dialog_padding">
+
+        <View
+            android:layout_width="@dimen/about_icon_size"
+            android:layout_height="@dimen/about_icon_size"
+            android:background="@drawable/ic_clash" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/about_text_margin"
+            android:orientation="vertical">
+
+            <!-- 应用名称 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/application_name_meta"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textStyle="bold" />
+
+            <!-- 版本号 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_text_margin"
+                android:text="@{versionName}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <!-- 作者 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_text_margin"
+                android:text="@{authorName}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <!-- 介绍 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_text_margin"
+                android:text="@{description}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <!-- 联系方式 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_text_margin"
+                android:text="@{contactInfo}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:autoLink="all" />
+
+            <!-- 标语 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_padding"
+                android:gravity="center"
+                android:text="@string/about_tagline"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textStyle="italic" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

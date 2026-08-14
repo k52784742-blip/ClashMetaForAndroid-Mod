@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主色调 - 玻璃质感 -->
+    <color name="color_clash_light">#8B5CF6</color>
+    <color name="color_clash_dark">#7C3AED</color>
+    <!-- 强调色 -->
+    <color name="color_accent_light">#F59E0B</color>
+    <color name="color_accent_dark">#FBBF24</color>
+    <color name="color_accent_green">#10B981</color>
+    <color name="color_accent_purple">#8B5CF6</color>
+    <color name="color_accent_teal">#14B8A6</color>
+
+    <!-- 玻璃质感背景色 -->
+    <color name="color_system_ui_overlay">#33000000</color>
+    <color name="color_light_background">#F2F5F9</color>
+    <color name="color_dark_background">#0F0F1A</color>
+    <color name="color_dark_surface">#1A1A2E</color>
+    <!-- 玻璃卡片色（50% 半透明，透出背景渐变形成玻璃质感） -->
+    <color name="color_glass_light">#80FFFFFF</color>
+    <color name="color_glass_dark">#801A1A2E</color>
+    <color name="color_glass_stroke_light">#40000000</color>
+    <color name="color_glass_stroke_dark">#40FFFFFF</color>
+
+    <color name="color_light_clash_stopped">#FF808080</color>
+    <color name="color_light_control_disabled">#FFD3D3D3</color>
+    <color name="color_dark_control_disabled">#FF808080</color>
+    <color name="color_error">#FFB00020</color>
+</resources>
