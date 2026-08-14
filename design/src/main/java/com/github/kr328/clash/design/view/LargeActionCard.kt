@@ -1,8 +1,10 @@
 package com.github.kr328.clash.design.view
 
 import android.content.Context
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.View
 import androidx.annotation.AttrRes
 import com.github.kr328.clash.design.R
 import com.github.kr328.clash.design.databinding.ComponentLargeActionLabelBinding
@@ -27,6 +29,7 @@ class LargeActionCard @JvmOverloads constructor(
         get() = binding.subtextView.text
         set(value) {
             binding.subtextView.text = value
+            binding.subtextView.visibility = if (value == null) View.GONE else View.VISIBLE
         }
 
     var icon: Drawable?
@@ -55,6 +58,17 @@ class LargeActionCard @JvmOverloads constructor(
             } finally {
                 recycle()
             }
+        }
+
+        // 卡片内文字层次：标题加粗加大，副标题次要色
+        binding.textView.apply {
+            textSize = 20f
+            typeface = Typeface.DEFAULT_BOLD
+            setTextColor(context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurface))
+        }
+        binding.subtextView.apply {
+            textSize = 14f
+            setTextColor(context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurfaceVariant))
         }
 
         minimumHeight = context.getPixels(R.dimen.large_action_card_min_height)

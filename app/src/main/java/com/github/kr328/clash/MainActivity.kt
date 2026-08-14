@@ -100,6 +100,8 @@ class MainActivity : BaseActivity<MainDesign>() {
 
         setMode(state.mode)
         setHasProviders(providers.isNotEmpty())
+        // hero 区只显示版本号第一行（避免把内核版本换行显示出来）
+        setVersionName(queryAppVersionName().substringBefore('\n'))
 
         withProfile {
             setProfileName(queryActive()?.name)

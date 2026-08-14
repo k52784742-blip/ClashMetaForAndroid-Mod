@@ -37,6 +37,12 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
         }
     }
 
+    suspend fun setVersionName(name: String) {
+        withContext(Dispatchers.Main) {
+            binding.versionName = name
+        }
+    }
+
     suspend fun setClashRunning(running: Boolean) {
         withContext(Dispatchers.Main) {
             binding.clashRunning = running

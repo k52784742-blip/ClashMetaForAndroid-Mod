@@ -5,8 +5,11 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.github.kr328.clash.common.compat.getDrawableCompat
+import com.github.kr328.clash.design.R
 import com.github.kr328.clash.design.databinding.PreferenceClickableBinding
+import com.github.kr328.clash.design.util.decorateIcon
 import com.github.kr328.clash.design.util.layoutInflater
+import com.github.kr328.clash.design.util.resolveThemedColor
 
 interface ClickablePreference : Preference {
     var title: CharSequence
@@ -30,7 +33,11 @@ fun PreferenceScreen.clickable(
         override var icon: Drawable?
             get() = binding.iconView.background
             set(value) {
-                binding.iconView.background = value
+                binding.iconView.background = context.decorateIcon(
+                    value,
+                    tint = context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurface),
+                    insetDp = 5,
+                )
                 binding.iconView.visibility = if (value == null) View.GONE else View.VISIBLE
             }
         override var title: CharSequence

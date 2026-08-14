@@ -18,6 +18,9 @@
             name="profileName"
             type="String" />
         <variable
+            name="versionName"
+            type="String" />
+        <variable
             name="colorClashStarted"
             type="int" />
         <variable
@@ -55,9 +58,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/main_card_margin_vertical"
+                    android:background="@drawable/bg_b"
+                    android:elevation="2dp"
                     android:gravity="center_vertical"
                     android:minHeight="@dimen/main_top_banner_height"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
                     <FrameLayout
                         android:layout_width="@dimen/large_item_header_layout_size"
@@ -70,12 +77,38 @@
                             android:background="@drawable/ic_clash" />
                     </FrameLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/application_name"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                        android:textStyle="bold" />
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/application_name"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@{versionName}"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="?attr/colorPrimary"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/about_tagline"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                            android:textColor="?attr/colorControlDisabled" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <com.github.kr328.clash.design.view.LargeActionCard
@@ -107,6 +140,18 @@
                     app:icon="@drawable/ic_baseline_view_list"
                     app:subtext="@{profileName != null ? @string/format_profile_activated(profileName) : @string/not_selected}"
                     app:text="@string/profile" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/item_header_margin"
+                    android:layout_marginTop="@dimen/main_card_margin_vertical"
+                    android:paddingVertical="@dimen/item_text_margin"
+                    android:text="@string/more"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="?attr/colorControlActivated"
+                    android:textStyle="bold"
+                    android:textAllCaps="true" />
 
                 <com.github.kr328.clash.design.view.LargeActionLabel
                     android:layout_width="match_parent"

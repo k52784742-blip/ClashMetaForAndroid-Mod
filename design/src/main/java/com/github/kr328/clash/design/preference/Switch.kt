@@ -6,7 +6,9 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.github.kr328.clash.common.compat.getDrawableCompat
 import com.github.kr328.clash.design.databinding.PreferenceSwitchBinding
+import com.github.kr328.clash.design.util.decorateIcon
 import com.github.kr328.clash.design.util.layoutInflater
+import com.github.kr328.clash.design.util.resolveThemedColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,7 +37,11 @@ fun PreferenceScreen.switch(
         override var icon: Drawable?
             get() = binding.iconView.background
             set(value) {
-                binding.iconView.background = value
+                binding.iconView.background = context.decorateIcon(
+                    value,
+                    tint = context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurface),
+                    insetDp = 5,
+                )
             }
         override var title: CharSequence?
             get() = binding.titleView.text
