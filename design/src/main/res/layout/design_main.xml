@@ -63,18 +63,27 @@
                         android:layout_width="@dimen/large_item_header_layout_size"
                         android:layout_height="@dimen/large_item_header_layout_size">
 
-                        <View
+                        <FrameLayout
                             android:layout_width="@dimen/main_logo_size"
                             android:layout_height="@dimen/main_logo_size"
                             android:layout_gravity="center"
-                            android:background="@drawable/ic_clash" />
+                            android:background="@drawable/bg_logo_circle"
+                            android:elevation="3dp"
+                            android:padding="10dp">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_clash" />
+                        </FrameLayout>
                     </FrameLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/application_name"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <com.github.kr328.clash.design.view.LargeActionCard

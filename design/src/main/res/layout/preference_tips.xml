@@ -7,11 +7,18 @@
         android:orientation="horizontal"
         android:paddingVertical="@dimen/item_padding_vertical">
 
-        <View
+        <FrameLayout
             android:layout_width="@dimen/tips_icon_size"
             android:layout_height="@dimen/tips_icon_size"
             android:layout_marginHorizontal="@dimen/tips_icon_margin"
-            android:background="@drawable/ic_outline_info" />
+            android:background="@drawable/bg_icon_tint"
+            android:padding="5dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_outline_info" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tips"

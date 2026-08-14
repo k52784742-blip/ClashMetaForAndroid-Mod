@@ -22,6 +22,8 @@
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/item_header_margin"
+                android:paddingEnd="@dimen/item_header_margin"
                 android:paddingTop="@{(float) surface.insets.top + @dimen/toolbar_height}"
                 android:paddingBottom="@{surface.insets.bottom}" />
         </com.github.kr328.clash.design.view.ObservableScrollView>

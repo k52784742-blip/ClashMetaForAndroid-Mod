@@ -34,5 +34,11 @@ fun CoroutineScope.preferenceScreen(
 }
 
 fun PreferenceScreen.addElement(preference: Preference) {
-    root.addView(preference.view, LayoutParams(MATCH_PARENT, WRAP_CONTENT))
+    // 玻璃卡片之间留出间距，让玻璃质感更明显
+    root.addView(
+        preference.view,
+        LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
+            bottomMargin = context.resources.displayMetrics.density.toInt() * 4
+        }
+    )
 }

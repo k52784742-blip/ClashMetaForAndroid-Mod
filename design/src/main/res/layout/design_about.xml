@@ -23,10 +23,18 @@
         android:padding="@dimen/dialog_padding"
         android:background="@drawable/bg_b">
 
-        <View
+        <FrameLayout
             android:layout_width="@dimen/about_icon_size"
             android:layout_height="@dimen/about_icon_size"
-            android:background="@drawable/ic_clash" />
+            android:background="@drawable/bg_logo_circle"
+            android:elevation="3dp"
+            android:padding="8dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_clash" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +56,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_text_margin"
                 android:text="@{versionName}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="?attr/colorPrimary"
+                android:textStyle="bold" />
 
             <!-- 作者 -->
             <TextView
@@ -73,6 +83,7 @@
                 android:layout_marginTop="@dimen/item_text_margin"
                 android:text="@{contactInfo}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="?attr/colorPrimary"
                 android:autoLink="all" />
 
             <!-- 标语 -->
@@ -83,6 +94,7 @@
                 android:gravity="center"
                 android:text="@string/about_tagline"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textColor="?attr/colorPrimary"
                 android:textStyle="italic" />
         </LinearLayout>
     </LinearLayout>

@@ -103,7 +103,13 @@
                 android:layout_height="@dimen/tab_layout_height"
                 android:background="@drawable/bg_b"
                 app:tabBackground="@android:color/transparent"
-                app:tabMode="scrollable" />
+                app:tabIndicator="@drawable/bg_tab_indicator"
+                app:tabIndicatorColor="?attr/colorPrimary"
+                app:tabIndicatorFullWidth="false"
+                app:tabMode="scrollable"
+                app:tabRippleColor="@android:color/transparent"
+                app:tabSelectedTextColor="?attr/colorPrimary"
+                app:tabTextColor="?attr/colorControlNormal" />
 
             <View
                 android:id="@+id/elevation_view"
@@ -125,8 +131,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/item_tailing_margin"
                 android:contentDescription="@string/delay_test"
+                android:elevation="6dp"
                 android:onClick="@{() -> self.requestUrlTesting()}"
-                android:src="@drawable/ic_baseline_flash_on" />
+                android:src="@drawable/ic_baseline_flash_on"
+                app:backgroundTint="?attr/colorPrimary"
+                app:tint="@android:color/white" />
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

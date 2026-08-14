@@ -45,7 +45,7 @@
     <dimen name="item_midden_margin">10dp</dimen>
 
     <!-- Large Card -->
-    <dimen name="large_action_card_radius">8dp</dimen>
+    <dimen name="large_action_card_radius">16dp</dimen>
     <dimen name="large_action_card_elevation">5dp</dimen>
     <dimen name="large_action_card_min_height">85dp</dimen>
     <dimen name="glass_stroke_width">1dp</dimen>

@@ -12,6 +12,8 @@ class ProxyViewConfig(val context: Context, var proxyLine: Int) {
     private val colorSurface = context.resolveThemedColor(com.google.android.material.R.attr.colorSurface)
     private val effectiveGlassBackground = if (colorGlass != 0) colorGlass else colorSurface
 
+    val glassStroke = context.resolveThemedColor(R.attr.colorGlassStroke)
+
     val clickableBackground =
         context.resolveThemedResourceId(android.R.attr.selectableItemBackground)
 

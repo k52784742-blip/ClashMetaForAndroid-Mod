@@ -21,7 +21,7 @@
     <color name="color_glass_stroke_light">#80000000</color>
     <color name="color_glass_stroke_dark">#80FFFFFF</color>
 
-    <color name="color_light_clash_stopped">#FF808080</color>
+    <color name="color_light_clash_stopped">#8C7BA8</color>
     <color name="color_light_control_disabled">#FFD3D3D3</color>
     <color name="color_dark_control_disabled">#FF808080</color>
     <color name="color_error">#FFB00020</color>
