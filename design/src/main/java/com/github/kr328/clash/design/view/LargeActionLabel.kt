@@ -2,6 +2,7 @@ package com.github.kr328.clash.design.view
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.util.AttributeSet
 import android.view.View
@@ -12,6 +13,7 @@ import com.github.kr328.clash.design.R
 import com.github.kr328.clash.design.databinding.ComponentLargeActionLabelBinding
 import com.github.kr328.clash.design.util.layoutInflater
 import com.github.kr328.clash.design.util.resolveClickableAttrs
+import com.github.kr328.clash.design.util.resolveThemedColor
 import com.github.kr328.clash.design.util.selectableItemBackground
 
 class LargeActionLabel @JvmOverloads constructor(
@@ -29,10 +31,16 @@ class LargeActionLabel @JvmOverloads constructor(
             if (value == null) {
                 binding.iconView.background = null
             } else {
-                // 圆形底托 + 居中图标（6dp 内边距）
-                val tint = context.getDrawable(R.drawable.bg_icon_tint)
-                val inset = context.resources.displayMetrics.density.toInt() * 6
-                binding.iconView.background = LayerDrawable(arrayOf(tint, value)).apply {
+                // 程序化创建玻璃圆形底托，避免 getDrawable 加载含自定义属性的 XML（防止 null/异常崩溃）
+                val glass = context.resolveThemedColor(R.attr.colorGlass)
+                val stroke = context.resolveThemedColor(R.attr.colorGlassStroke)
+                val inset = (context.resources.displayMetrics.density * 6).toInt()
+                val backgroundDrawable = GradientDrawable().apply {
+                    shape = GradientDrawable.OVAL
+                    setColor(if (glass != 0) glass else 0x4DFFFFFF.toInt())
+                    setStroke(1, if (stroke != 0) stroke else 0x33FFFFFF.toInt())
+                }
+                binding.iconView.background = LayerDrawable(arrayOf(backgroundDrawable, value)).apply {
                     setLayerInset(1, inset, inset, inset, inset)
                 }
             }

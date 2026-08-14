@@ -76,9 +76,14 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
             }
 
             // 使用 Activity 的 AppTheme 以确保 colorGlass/colorGlassStroke 属性可用
-            AlertDialog.Builder(context)
+            // 并透明化 dialog 窗口背景，避免白色底遮盖玻璃质感
+            val dialog = AlertDialog.Builder(context)
                 .setView(binding.root)
-                .show()
+                .create()
+            dialog.setOnShowListener {
+                dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            }
+            dialog.show()
         }
     }
 

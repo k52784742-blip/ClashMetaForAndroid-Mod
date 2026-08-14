@@ -65,7 +65,10 @@ class LargeActionCard @JvmOverloads constructor(
         val glassColor = context.resolveThemedColor(R.attr.colorGlass)
         val fallbackSurface = context.resolveThemedColor(com.google.android.material.R.attr.colorSurface)
         setCardBackgroundColor(if (glassColor != 0) glassColor else fallbackSurface)
-        strokeColor = context.resolveThemedColor(R.attr.colorGlassStroke)
+        val strokeColor = context.resolveThemedColor(R.attr.colorGlassStroke)
+        if (strokeColor != 0) {
+            this.strokeColor = strokeColor
+        }
         strokeWidth = context.getPixels(R.dimen.glass_stroke_width)
     }
 }

@@ -101,14 +101,16 @@ class ProxyView(
 
                 drawPath(path, paint)
 
-                // 玻璃描边：给代理卡片画一圈高光描边
-                paint.reset()
-                paint.style = Paint.Style.STROKE
-                paint.strokeWidth = 1f
-                paint.color = state.config.glassStroke
-                paint.setShadowLayer(0f, 0f, 0f, 0)
+                // 玻璃描边：给代理卡片画一圈高光描边（颜色非零时绘制，避免透明残留）
+                if (state.config.glassStroke != 0) {
+                    paint.reset()
+                    paint.style = Paint.Style.STROKE
+                    paint.strokeWidth = 1f
+                    paint.color = state.config.glassStroke
+                    paint.setShadowLayer(0f, 0f, 0f, 0)
 
-                drawPath(path, paint)
+                    drawPath(path, paint)
+                }
 
                 clipPath(path)
             }
