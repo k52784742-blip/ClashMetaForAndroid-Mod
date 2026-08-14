@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.github.kr328.clash.core.model.TunnelState
+import com.github.kr328.clash.core.util.trafficDownload
 import com.github.kr328.clash.core.util.trafficTotal
+import com.github.kr328.clash.core.util.trafficUpload
 import com.github.kr328.clash.design.databinding.DesignAboutBinding
 import com.github.kr328.clash.design.databinding.DesignMainBinding
 import com.github.kr328.clash.design.util.layoutInflater
@@ -40,6 +42,12 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
     suspend fun setVersionName(name: String) {
         withContext(Dispatchers.Main) {
             binding.versionName = name
+        }
+    }
+
+    suspend fun setTrafficDetail(traffic: Long) {
+        withContext(Dispatchers.Main) {
+            binding.trafficDetail = "↑ ${traffic.trafficUpload()}    ↓ ${traffic.trafficDownload()}"
         }
     }
 

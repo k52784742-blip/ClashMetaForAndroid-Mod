@@ -11,6 +11,7 @@ import com.github.kr328.clash.design.R
  * 统一的图标装饰工具：
  * 玻璃圆形底托 + 主题色着色，让所有列表项图标有统一的高级质感。
  * 全程使用 mutate() 防止污染共享 drawable。
+ * tint 可传 0 表示不强制着色（保留原图标自身颜色/渐变）。
  */
 fun Context.decorateIcon(
     icon: Drawable?,
@@ -22,8 +23,13 @@ fun Context.decorateIcon(
     if (icon == null) return null
 
     // 着色（mutate 防止污染原始资源）
-    val tinted = DrawableCompat.wrap(icon).mutate()
-    DrawableCompat.setTint(tinted, tint)
+    val tinted = if (tint != 0) {
+        DrawableCompat.wrap(icon).mutate().also {
+            DrawableCompat.setTint(it, tint)
+        }
+    } else {
+        icon
+    }
 
     // 玻璃圆形底托
     val resolvedGlass = if (glassColor != 0) glassColor else resolveThemedColor(R.attr.colorGlass)
