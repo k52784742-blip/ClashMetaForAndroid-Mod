@@ -30,7 +30,7 @@ class LargeActionLabel @JvmOverloads constructor(
             // 玻璃圆形底托 + 主题色着色（mutate 保护，杜绝共享 drawable 污染）
             binding.iconView.background = context.decorateIcon(
                 value,
-                tint = context.resolveThemedColor(R.attr.colorControlNormal),
+                tint = context.resolveThemedColor(android.R.attr.colorControlNormal),
                 insetDp = 5,
             )
         }
