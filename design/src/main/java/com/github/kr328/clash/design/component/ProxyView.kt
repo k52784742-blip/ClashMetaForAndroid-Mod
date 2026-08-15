@@ -189,11 +189,18 @@ class ProxyView(
         // text draw measure
         val textOffset = (paint.descent() + paint.ascent()) / 2
 
+        // delay 延迟文本着色：好延迟绿色，中延迟橙色，高延迟红色
+        val delayColor = when {
+            state.delay in 0..200 -> 0xFF10B981.toInt()   // 绿色
+            state.delay in 201..500 -> 0xFFF59E0B.toInt() // 橙色
+            else -> state.config.unselectedControl         // 默认色
+        }
+
         paint.reset()
 
         paint.textSize = state.config.textSize
         paint.isAntiAlias = true
-        paint.color = state.controls
+        paint.color = delayColor
 
         // draw delay
         canvas.apply {
@@ -204,6 +211,11 @@ class ProxyView(
         }
 
         // draw title
+        paint.reset()
+        paint.textSize = state.config.textSize
+        paint.isAntiAlias = true
+        paint.color = state.controls
+
         canvas.apply {
             val x = state.config.layoutPadding + state.config.contentPadding
             val y = state.config.layoutPadding +

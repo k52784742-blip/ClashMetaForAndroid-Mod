@@ -25,7 +25,7 @@ class ProxyViewState(
     var background: Int = config.unselectedBackground
     var controls: Int = config.unselectedControl
 
-    private var delay: Int = 0
+    var delay: Int = 0
     private var selected: Boolean = false
     private var parentNow: String = ""
     private var linkNow: String? = null

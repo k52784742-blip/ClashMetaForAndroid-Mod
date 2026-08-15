@@ -90,12 +90,17 @@ abstract class BaseActivity<D : Design<*>> : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         applyDayNight()
 
-        // 页面切换动画：新页面淡入+轻微缩放（用全限定 app R，避免被 design R 遮蔽）
+        // 页面切换动画：新页面淡入+轻微缩放，返回时淡出缩小（用全限定 app R，避免被 design R 遮蔽）
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             overrideActivityTransition(
                 OVERRIDE_TRANSITION_OPEN,
                 com.github.kr328.clash.R.anim.activity_fade_in,
                 com.github.kr328.clash.R.anim.activity_fade_out
+            )
+            overrideActivityTransition(
+                OVERRIDE_TRANSITION_CLOSE,
+                com.github.kr328.clash.R.anim.activity_fade_out,
+                com.github.kr328.clash.R.anim.activity_fade_in
             )
         } else {
             @Suppress("DEPRECATION")

@@ -7,6 +7,7 @@ import com.github.kr328.clash.design.databinding.AdapterFileBinding
 import com.github.kr328.clash.design.model.File
 import com.github.kr328.clash.design.ui.ObservableCurrentTime
 import com.github.kr328.clash.design.util.layoutInflater
+import com.github.kr328.clash.design.util.EntranceAnim
 
 class FileAdapter(
     private val context: Context,
@@ -45,6 +46,8 @@ class FileAdapter(
                 more(current)
             }
         }
+
+        EntranceAnim.animate(holder.binding.root, position)
     }
 
     override fun getItemCount(): Int {

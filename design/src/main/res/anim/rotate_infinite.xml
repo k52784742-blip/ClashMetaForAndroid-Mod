@@ -7,5 +7,5 @@
         android:pivotY="50%"
         android:toDegrees="0"
         android:repeatCount="infinite"
-        android:interpolator="@android:anim/cycle_interpolator" />
+        android:interpolator="@android:anim/linear_interpolator" />
 </set>

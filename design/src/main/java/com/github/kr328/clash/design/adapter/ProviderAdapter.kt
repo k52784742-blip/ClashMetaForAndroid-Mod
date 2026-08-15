@@ -9,6 +9,7 @@ import com.github.kr328.clash.design.databinding.AdapterProviderBinding
 import com.github.kr328.clash.design.model.ProviderState
 import com.github.kr328.clash.design.ui.ObservableCurrentTime
 import com.github.kr328.clash.design.util.layoutInflater
+import com.github.kr328.clash.design.util.EntranceAnim
 
 class ProviderAdapter(
     private val context: Context,
@@ -67,6 +68,8 @@ class ProviderAdapter(
                 requestUpdate(position, state.provider)
             }
         }
+
+        EntranceAnim.animate(holder.binding.root, position)
     }
 
     override fun getItemCount(): Int {

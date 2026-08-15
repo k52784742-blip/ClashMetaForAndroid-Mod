@@ -7,6 +7,7 @@ import com.github.kr328.clash.design.databinding.AdapterAppBinding
 import com.github.kr328.clash.design.model.AppInfo
 import com.github.kr328.clash.design.util.layoutInflater
 import com.github.kr328.clash.design.util.root
+import com.github.kr328.clash.design.util.EntranceAnim
 
 class AppAdapter(
     private val context: Context,
@@ -41,6 +42,8 @@ class AppAdapter(
                 holder.binding.selected = true
             }
         }
+
+        EntranceAnim.animate(holder.binding.root, position)
     }
 
     override fun getItemCount(): Int {
