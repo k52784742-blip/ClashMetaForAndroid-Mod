@@ -1,8 +1,0 @@
-﻿
-name              status      conclusion
-----              ------      ----------
-Build Pre-Release completed   failure   
-Build Debug       in_progress           
-Build Pre-Release completed   failure   
-
-
