@@ -75,7 +75,7 @@ class ProxyActivity : BaseActivity<ProxyDesign>() {
                                 design.updateGroup(
                                     it.index,
                                     group.proxies,
-                                    group.type == "Selector",
+                                    group.type in setOf("Selector", "URLTest", "Fallback", "LoadBalance"),
                                     state,
                                     unorderedStates
                                 )

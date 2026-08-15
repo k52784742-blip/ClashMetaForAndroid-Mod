@@ -70,7 +70,7 @@ func QueryProxyGroupNames(excludeNotSelectable bool) []string {
 
 	for _, p := range proxies {
 		if g, ok := p.Adapter().(outboundgroup.ProxyGroup); ok {
-			if !excludeNotSelectable || p.Type() == C.Selector {
+			if !excludeNotSelectable || p.Type() == C.Selector || p.Type() == C.URLTest || p.Type() == C.Fallback || p.Type() == C.LoadBalance {
 				if g.Hidden() {
 					continue
 				}
