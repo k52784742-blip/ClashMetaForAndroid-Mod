@@ -90,8 +90,11 @@ abstract class BaseActivity<D : Design<*>> : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         applyDayNight()
 
-        // 页面切换动画：新页面淡入+轻微缩放
-        overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out)
+        // 页面切换动画：新页面淡入+轻微缩放（用全限定 app R，避免被 design R 遮蔽）
+        overridePendingTransition(
+            com.github.kr328.clash.R.anim.activity_fade_in,
+            com.github.kr328.clash.R.anim.activity_fade_out
+        )
 
         // Apply excludeFromRecents setting to all app tasks.
         checkNotNull(getSystemService<ActivityManager>()).appTasks.forEach { task ->
