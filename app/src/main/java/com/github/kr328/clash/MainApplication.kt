@@ -38,7 +38,13 @@ class MainApplication : Application() {
     private fun extractGeoFiles() {
         clashDir.mkdirs()
 
-        val updateDate = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
+        // getPackageInfo 可能抛异常（如包未安装），做安全处理
+        val updateDate = try {
+            packageManager.getPackageInfo(packageName, 0).lastUpdateTime
+        } catch (e: Exception) {
+            Log.w("Failed to get package update time: ${e.message}")
+            0L
+        }
 
         // 逐个提取 geo 文件，单个文件缺失不影响其他文件
         listOf(
@@ -48,7 +54,7 @@ class MainApplication : Application() {
             "BundleMRS.7z" to "BundleMRS.7z",
         ).forEach { (assetName, fileName) ->
             val target = File(clashDir, fileName)
-            if (target.exists() && target.lastModified() < updateDate) {
+            if (target.exists() && updateDate > 0L && target.lastModified() < updateDate) {
                 target.delete()
             }
             if (!target.exists()) {

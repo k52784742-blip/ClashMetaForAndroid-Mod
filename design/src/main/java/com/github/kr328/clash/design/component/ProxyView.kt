@@ -19,15 +19,8 @@ class ProxyView(
     var state: ProxyViewState? = null
         set(value) {
             field = value
-            // 状态变化时触发重绘
-            shadowDirty = true
             postInvalidateOnAnimation()
         }
-
-    /** 阴影缓存脏标记：true 时需要重绘阴影层 */
-    private var shadowDirty = true
-    /** 代理组布局模式缓存 */
-    private var lastProxyLine = 0
 
     constructor(context: Context) : this(context, ProxyViewConfig(context, 2))
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -71,17 +64,21 @@ class ProxyView(
     override fun draw(canvas: Canvas) {
         val state = state ?: return super.draw(canvas)
 
+        // 更新状态：选中/延迟变化后刷新界面（去掉颜色插值动画以减少开销）
+        if (state.update(false)) {
+            postInvalidateOnAnimation()
+        }
+
         val width = width.toFloat()
         val height = height.toFloat()
         val paint = state.paint
 
-        // 背景填充（无阴影时直接绘制，避免离屏渲染开销）
+        // 背景填充
         paint.reset()
         paint.color = state.background
         paint.style = Paint.Style.FILL
 
         if (state.config.proxyLine == 1) {
-            // 单列模式：纯色矩形，无需路径/阴影
             canvas.drawRect(0f, 0f, width, height, paint)
             super.draw(canvas)
             return
@@ -100,18 +97,14 @@ class ProxyView(
             Path.Direction.CW,
         )
 
-        // 阴影层：只在脏时重绘
-        if (shadowDirty) {
-            paint.setShadowLayer(
-                state.config.cardRadius,
-                state.config.cardOffset,
-                state.config.cardOffset,
-                state.config.shadow
-            )
-            shadowDirty = false
-        }
+        // 阴影层：paint.reset() 会清除 shadowLayer，因此每次绘制前必须重新设置
+        paint.setShadowLayer(
+            state.config.cardRadius,
+            state.config.cardOffset,
+            state.config.cardOffset,
+            state.config.shadow
+        )
 
-        // 绘制卡片背景
         canvas.drawPath(path, paint)
 
         // 玻璃描边
@@ -120,10 +113,11 @@ class ProxyView(
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = 1f
             paint.color = state.config.glassStroke
+            paint.setShadowLayer(0f, 0f, 0f, 0)
             canvas.drawPath(path, paint)
         }
 
-        // 选中高亮描边
+        // 选中高亮描边（用品牌紫）
         if (state.isSelected && state.config.selectedStrokeColor != 0) {
             paint.reset()
             paint.style = Paint.Style.STROKE
@@ -197,11 +191,12 @@ class ProxyView(
         // text draw measure
         val textOffset = (paint.descent() + paint.ascent()) / 2
 
-        // delay 延迟文本着色：好延迟绿色，中延迟橙色，高延迟红色
+        // delay 延迟文本着色：好延迟绿色，中延迟橙色，高延迟红色（0 表示未测速，用默认色）
         val delayColor = when {
-            state.delay in 0..200 -> 0xFF10B981.toInt()   // 绿色
+            state.delay == 0 -> state.config.unselectedControl
+            state.delay in 1..200 -> 0xFF10B981.toInt()   // 绿色
             state.delay in 201..500 -> 0xFFF59E0B.toInt() // 橙色
-            else -> state.config.unselectedControl         // 默认色
+            else -> 0xFFE53935.toInt()                    // 红色（>500ms）
         }
 
         paint.reset()

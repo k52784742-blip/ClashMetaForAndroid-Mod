@@ -70,7 +70,10 @@ func QueryProxyGroupNames(excludeNotSelectable bool) []string {
 
 	for _, p := range proxies {
 		if g, ok := p.Adapter().(outboundgroup.ProxyGroup); ok {
-			if !excludeNotSelectable || p.Type() == C.Selector || p.Type() == C.URLTest || p.Type() == C.Fallback || p.Type() == C.LoadBalance {
+			// 只有实现 SelectAble 接口的组才能手动选择：
+			// Selector / URLTest(自动选择) / Fallback(故障转移)
+			// LoadBalance 未实现 SelectAble，Set() 会失败，必须排除
+			if !excludeNotSelectable || p.Type() == C.Selector || p.Type() == C.URLTest || p.Type() == C.Fallback {
 				if g.Hidden() {
 					continue
 				}

@@ -39,8 +39,13 @@ class LogcatDesign(
         withContext(Dispatchers.Main) {
             adapter.messages = messages
 
-            adapter.notifyItemRangeInserted(adapter.messages.size, appended)
-            adapter.notifyItemRangeRemoved(0, removed)
+            // 先移除头部旧消息，再在尾部插入新消息，避免位置错乱
+            if (removed > 0) {
+                adapter.notifyItemRangeRemoved(0, removed)
+            }
+            if (appended > 0) {
+                adapter.notifyItemRangeInserted((messages.size - appended).coerceAtLeast(0), appended)
+            }
 
             if (streaming && binding.recyclerList.isTop) {
                 binding.recyclerList.scrollToPosition(messages.size - 1)

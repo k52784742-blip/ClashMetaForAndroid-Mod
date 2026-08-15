@@ -41,7 +41,8 @@ class ProxyViewState(
             if (link == null) {
                 subtitle = proxy.type
             } else {
-                if (linkNow !== link.now) {
+                // 用值比较（!=）而非引用比较（!==），避免字符串内容相同但引用不同时不更新
+                if (linkNow != link.now) {
                     linkNow = link.now
 
                     subtitle = "%s(%s)".format(
@@ -60,7 +61,8 @@ class ProxyViewState(
             delayText = if (proxy.delay in 0..Short.MAX_VALUE) proxy.delay.toString() else ""
         }
 
-        if (parentNow !== parent.now) {
+        // 用值比较（!=）而非引用比较（!==），确保 now 变化时正确更新选中状态
+        if (parentNow != parent.now) {
             parentNow = parent.now
             selected = proxy.name == parent.now
         }

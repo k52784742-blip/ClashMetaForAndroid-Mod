@@ -72,10 +72,13 @@ class ProxyActivity : BaseActivity<ProxyDesign>() {
 
                                 state.now = group.now
 
+                                // 只对实现了 SelectAble 接口的组开放手动选择：
+                                // Selector / URLTest(自动选择) / Fallback(故障转移)
+                                // 注意：LoadBalance 不实现 SelectAble，Set() 会失败，必须排除
                                 design.updateGroup(
                                     it.index,
                                     group.proxies,
-                                    group.type in setOf("Selector", "URLTest", "Fallback", "LoadBalance"),
+                                    group.type in setOf("Selector", "URLTest", "Fallback"),
                                     state,
                                     unorderedStates
                                 )
@@ -83,9 +86,12 @@ class ProxyActivity : BaseActivity<ProxyDesign>() {
                         }
                         is ProxyDesign.Request.Select -> {
                             withClash {
-                                patchSelector(names[it.index], it.name)
+                                val ok = patchSelector(names[it.index], it.name)
 
-                                states[it.index].now = it.name
+                                // 只有后端确认成功才更新本地状态，避免失败后 UI 与实际不符
+                                if (ok) {
+                                    states[it.index].now = it.name
+                                }
                             }
 
                             design.requestRedrawVisible()
