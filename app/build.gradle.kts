@@ -1,6 +1,7 @@
 import java.net.URL
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
+import java.util.concurrent.TimeUnit
 
 plugins {
     kotlin("android")
@@ -56,7 +57,11 @@ task("downloadGeoFiles") {
 
             val url = URL(downloadUrl)
             outputPath.parentFile.mkdirs()
-            url.openStream().use { input ->
+            val connection = url.openConnection().apply {
+                connectTimeout = TimeUnit.SECONDS.toMillis(30).toInt()
+                readTimeout = TimeUnit.SECONDS.toMillis(120).toInt()
+            }
+            connection.getInputStream().use { input ->
                 Files.copy(input, outputPath.toPath(), StandardCopyOption.REPLACE_EXISTING)
                 println("$outputFileName downloaded to $outputPath")
             }

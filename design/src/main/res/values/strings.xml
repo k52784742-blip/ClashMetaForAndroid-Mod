@@ -245,7 +245,7 @@
     <string name="clash_meta_core_url" translatable="false">https://github.com/Maybe/ClashMetaForAndroid-Mod</string>
 
     <string name="tips_properties"><![CDATA[Accept Only <strong>Clash Config</strong>(including <strong>Proxy</strong>/<strong>Rules</strong>)]]></string>
-    <string name="tips_help"><![CDATA[<strong>Maybe Mod v1.0</strong> is a personal customized build based on Clash Meta for Android.<br/>Developed by <strong>Maybe</strong>.<br/>Contact: <strong>TG @WUM66666666</strong>]]></string>
+    <string name="tips_help"><![CDATA[<strong>Maybe Mod v2.11.32</strong> is a personal customized build based on Clash Meta for Android.<br/>Developed by <strong>Maybe</strong>.<br/>Contact: <strong>TG @WUM66666666</strong>]]></string>
 
     <string name="google_play_url" translatable="false">https://play.google.com/store/apps/details?id=com.github.kr328.clash</string>
 

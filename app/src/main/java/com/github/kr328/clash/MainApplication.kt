@@ -39,43 +39,27 @@ class MainApplication : Application() {
         clashDir.mkdirs()
 
         val updateDate = packageManager.getPackageInfo(packageName, 0).lastUpdateTime
-        val geoipFile = File(clashDir, "geoip.metadb")
-        if (geoipFile.exists() && geoipFile.lastModified() < updateDate) {
-            geoipFile.delete()
-        }
-        if (!geoipFile.exists()) {
-            FileOutputStream(geoipFile).use {
-                assets.open("geoip.metadb").copyTo(it)
-            }
-        }
 
-        val geositeFile = File(clashDir, "geosite.dat")
-        if (geositeFile.exists() && geositeFile.lastModified() < updateDate) {
-            geositeFile.delete()
-        }
-        if (!geositeFile.exists()) {
-            FileOutputStream(geositeFile).use {
-                assets.open("geosite.dat").copyTo(it)
+        // 逐个提取 geo 文件，单个文件缺失不影响其他文件
+        listOf(
+            "geoip.metadb" to "geoip.metadb",
+            "geosite.dat" to "geosite.dat",
+            "ASN.mmdb" to "ASN.mmdb",
+            "BundleMRS.7z" to "BundleMRS.7z",
+        ).forEach { (assetName, fileName) ->
+            val target = File(clashDir, fileName)
+            if (target.exists() && target.lastModified() < updateDate) {
+                target.delete()
             }
-        }
-
-        val asnFile = File(clashDir, "ASN.mmdb")
-        if (asnFile.exists() && asnFile.lastModified() < updateDate) {
-            asnFile.delete()
-        }
-        if (!asnFile.exists()) {
-            FileOutputStream(asnFile).use {
-                assets.open("ASN.mmdb").copyTo(it)
-            }
-        }
-
-        val bundleMRSFile = File(clashDir, "BundleMRS.7z")
-        if (bundleMRSFile.exists() && bundleMRSFile.lastModified() < updateDate) {
-            bundleMRSFile.delete()
-        }
-        if (!bundleMRSFile.exists()) {
-            FileOutputStream(bundleMRSFile).use {
-                assets.open("BundleMRS.7z").copyTo(it)
+            if (!target.exists()) {
+                try {
+                    FileOutputStream(target).use {
+                        assets.open(assetName).copyTo(it)
+                    }
+                } catch (e: Exception) {
+                    Log.w("Failed to extract $assetName: ${e.message}")
+                    target.delete()
+                }
             }
         }
     }

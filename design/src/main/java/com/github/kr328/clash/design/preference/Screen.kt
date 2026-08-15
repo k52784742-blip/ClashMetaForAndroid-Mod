@@ -35,10 +35,11 @@ fun CoroutineScope.preferenceScreen(
 
 fun PreferenceScreen.addElement(preference: Preference) {
     // 玻璃卡片之间留出间距，让玻璃质感更明显
+    val density = context.resources.displayMetrics.density
     root.addView(
         preference.view,
         LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
-            bottomMargin = context.resources.displayMetrics.density.toInt() * 4
+            bottomMargin = (density * 4 + 0.5f).toInt()
         }
     )
 }

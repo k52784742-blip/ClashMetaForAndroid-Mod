@@ -44,8 +44,14 @@ class DynamicNotificationModule(service: Service) : Module<Unit>(service) {
     private val notificationManager = NotificationManagerCompat.from(service)
 
     private fun update() {
-        val now = Clash.queryTrafficNow()
         val total = Clash.queryTrafficTotal()
+
+        // queryTrafficNow 可能在核心未完全启动时返回 0 或抛异常，做安全处理
+        val now = try {
+            Clash.queryTrafficNow()
+        } catch (e: Throwable) {
+            0L
+        }
 
         val uploading = now.trafficUpload()
         val downloading = now.trafficDownload()

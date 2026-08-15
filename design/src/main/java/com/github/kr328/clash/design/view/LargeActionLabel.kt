@@ -46,7 +46,7 @@ class LargeActionLabel @JvmOverloads constructor(
         set(value) {
             binding.subtextView.text = value
 
-            if (value == null) {
+            if (value.isNullOrBlank()) {
                 binding.subtextView.visibility = View.GONE
             } else {
                 binding.subtextView.visibility = View.VISIBLE

@@ -113,13 +113,13 @@ class ProxyView(
                 }
 
                 // 选中高亮：品牌紫色描边，让当前节点一目了然
-                if (state.isSelected) {
+                if (state.isSelected && state.config.selectedStrokeColor != 0) {
                     paint.reset()
                     paint.style = Paint.Style.STROKE
                     paint.strokeWidth = 2f
                     paint.color = state.config.selectedStrokeColor
                     paint.setShadowLayer(
-                        state.config.cardRadius,
+                        state.config.cardRadius * 0.6f,
                         0f, 0f,
                         state.config.selectedStrokeColor
                     )

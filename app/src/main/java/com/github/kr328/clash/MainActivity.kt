@@ -112,11 +112,16 @@ class MainActivity : BaseActivity<MainDesign>() {
 
     private suspend fun MainDesign.fetchTraffic() {
         withClash {
-            val now = queryTrafficNow()
             val total = queryTrafficTotal()
 
             setForwarded(total)
-            setTrafficDetail(total)
+
+            // 实时速度（queryTrafficNow 可能不可用或返回 0，做安全处理）
+            val now = try {
+                queryTrafficNow()
+            } catch (e: Throwable) {
+                0L
+            }
             setTrafficNow(
                 "↑ ${now.trafficUpload()}/s   ↓ ${now.trafficDownload()}/s",
                 ""
@@ -156,7 +161,13 @@ class MainActivity : BaseActivity<MainDesign>() {
 
     private suspend fun queryAppVersionName(): String {
         return withContext(Dispatchers.IO) {
-            packageManager.getPackageInfo(packageName, 0).versionName + "\n" + Bridge.nativeCoreVersion().replace("_", "-")
+            val versionName = packageManager.getPackageInfo(packageName, 0).versionName ?: "unknown"
+            val coreVersion = try {
+                Bridge.nativeCoreVersion().replace("_", "-")
+            } catch (e: UnsatisfiedLinkError) {
+                "core not loaded"
+            }
+            "$versionName\n$coreVersion"
         }
     }
 

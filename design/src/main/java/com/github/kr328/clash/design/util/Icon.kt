@@ -22,9 +22,10 @@ fun Context.decorateIcon(
 ): Drawable? {
     if (icon == null) return null
 
-    // 着色（mutate 防止污染原始资源）
+    // 着色（mutate 防止污染原始资源，先 mutate 再 wrap 确保 tint 独立）
     val tinted = if (tint != 0) {
-        DrawableCompat.wrap(icon).mutate().also {
+        val mutated = icon.mutate()
+        DrawableCompat.wrap(mutated).also {
             DrawableCompat.setTint(it, tint)
         }
     } else {

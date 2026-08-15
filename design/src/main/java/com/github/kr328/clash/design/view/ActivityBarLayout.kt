@@ -26,7 +26,9 @@ class ActivityBarLayout @JvmOverloads constructor(
         background = GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             setColor(if (glass != 0) glass else fallbackSurface)
-            setStroke(1, stroke)
+            if (stroke != 0) {
+                setStroke(1, stroke)
+            }
         }
     }
 

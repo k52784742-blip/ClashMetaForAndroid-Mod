@@ -29,7 +29,7 @@ class LargeActionCard @JvmOverloads constructor(
         get() = binding.subtextView.text
         set(value) {
             binding.subtextView.text = value
-            binding.subtextView.visibility = if (value == null) View.GONE else View.VISIBLE
+            binding.subtextView.visibility = if (value.isNullOrBlank()) View.GONE else View.VISIBLE
         }
 
     var icon: Drawable?
@@ -64,11 +64,13 @@ class LargeActionCard @JvmOverloads constructor(
         binding.textView.apply {
             textSize = 20f
             typeface = Typeface.DEFAULT_BOLD
-            setTextColor(context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurface))
+            val onSurface = context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurface)
+            setTextColor(if (onSurface != 0) onSurface else context.resolveThemedColor(android.R.attr.textColorPrimary))
         }
         binding.subtextView.apply {
             textSize = 14f
-            setTextColor(context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurfaceVariant))
+            val onSurfaceVariant = context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurfaceVariant)
+            setTextColor(if (onSurfaceVariant != 0) onSurfaceVariant else context.resolveThemedColor(android.R.attr.textColorSecondary))
         }
 
         minimumHeight = context.getPixels(R.dimen.large_action_card_min_height)
@@ -82,7 +84,7 @@ class LargeActionCard @JvmOverloads constructor(
         val strokeColor = context.resolveThemedColor(R.attr.colorGlassStroke)
         if (strokeColor != 0) {
             this.strokeColor = strokeColor
+            strokeWidth = context.getPixels(R.dimen.glass_stroke_width)
         }
-        strokeWidth = context.getPixels(R.dimen.glass_stroke_width)
     }
 }

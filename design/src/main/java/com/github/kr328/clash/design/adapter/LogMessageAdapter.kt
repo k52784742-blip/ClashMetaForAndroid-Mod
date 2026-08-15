@@ -44,8 +44,7 @@ class LogMessageAdapter(
             copy(current)
 
             true
-        }
-    }
+        }    }
 
     override fun getItemCount(): Int {
         return messages.size

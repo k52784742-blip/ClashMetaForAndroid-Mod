@@ -52,6 +52,7 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
     suspend fun setTrafficNow(title: String, subtext: String) {
         withContext(Dispatchers.Main) {
             binding.trafficTitle = title
+            // trafficSubtext 在布局中未绑定到具体 View，保留赋值以备将来使用
             binding.trafficSubtext = subtext
         }
     }
@@ -88,7 +89,7 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
     suspend fun showAbout(versionName: String) {
         withContext(Dispatchers.Main) {
             val binding = DesignAboutBinding.inflate(context.layoutInflater).apply {
-                this.versionName = "v1.0"
+                this.versionName = versionName // 使用真实版本号，不再硬编码 v1.0
                 this.authorName = context.getString(R.string.about_author)
                 this.description = context.getString(R.string.about_description)
                 this.contactInfo = context.getString(R.string.about_contact)
@@ -102,6 +103,7 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
             dialog.setOnShowListener {
                 dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
             }
+            dialog.setCanceledOnTouchOutside(true)
             dialog.show()
         }
     }

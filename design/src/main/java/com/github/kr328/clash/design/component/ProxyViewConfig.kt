@@ -20,8 +20,9 @@ class ProxyViewConfig(val context: Context, var proxyLine: Int) {
     val selectedControl = context.resolveThemedColor(com.google.android.material.R.attr.colorOnPrimary)
     val selectedBackground = context.resolveThemedColor(com.google.android.material.R.attr.colorPrimary)
 
-    /** 选中节点高亮描边色（品牌紫） */
+    /** 选中节点高亮描边色（品牌紫，fallback 到 colorPrimary 已由 resolveThemedColor 保证） */
     val selectedStrokeColor = context.resolveThemedColor(com.google.android.material.R.attr.colorPrimary)
+        .let { if (it != 0) it else 0xFF8B5CF6.toInt() }
 
     val unselectedControl = context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurface)
     val unselectedBackground: Int

@@ -1,10 +1,8 @@
-## Clash Meta for Android
+## Maybe Mod for Android
 
-A Graphical user interface of [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta) for Android
+Maybe 个人定制的 Clash Meta for Android 客户端（基于 [ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid) 二次美化与修复）。
 
-### Feature
-
-Feature of [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta)
+完整功能继承自 [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta)
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
