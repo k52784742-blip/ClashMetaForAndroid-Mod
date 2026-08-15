@@ -30,6 +30,10 @@ class ProxyViewState(
     private var parentNow: String = ""
     private var linkNow: String? = null
 
+    /** 当前节点是否为选中节点（供 ProxyView 绘制选中高亮描边） */
+    val isSelected: Boolean
+        get() = selected
+
     private var lastFrameTime = System.currentTimeMillis()
 
     fun update(snap: Boolean): Boolean {

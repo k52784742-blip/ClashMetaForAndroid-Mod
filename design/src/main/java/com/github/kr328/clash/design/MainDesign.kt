@@ -49,6 +49,13 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
         }
     }
 
+    suspend fun setTrafficNow(title: String, subtext: String) {
+        withContext(Dispatchers.Main) {
+            binding.trafficTitle = title
+            binding.trafficSubtext = subtext
+        }
+    }
+
     suspend fun setClashRunning(running: Boolean) {
         withContext(Dispatchers.Main) {
             binding.clashRunning = running

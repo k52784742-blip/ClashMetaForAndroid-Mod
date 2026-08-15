@@ -22,6 +22,8 @@ import com.github.kr328.clash.util.stopClashService
 import com.github.kr328.clash.util.withClash
 import com.github.kr328.clash.util.withProfile
 import com.github.kr328.clash.core.bridge.*
+import com.github.kr328.clash.core.util.trafficDownload
+import com.github.kr328.clash.core.util.trafficUpload
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.selects.select
@@ -110,8 +112,15 @@ class MainActivity : BaseActivity<MainDesign>() {
 
     private suspend fun MainDesign.fetchTraffic() {
         withClash {
-            setForwarded(queryTrafficTotal())
-            setTrafficDetail(queryTrafficTotal())
+            val now = queryTrafficNow()
+            val total = queryTrafficTotal()
+
+            setForwarded(total)
+            setTrafficDetail(total)
+            setTrafficNow(
+                "↑ ${now.trafficUpload()}/s   ↓ ${now.trafficDownload()}/s",
+                ""
+            )
         }
     }
 

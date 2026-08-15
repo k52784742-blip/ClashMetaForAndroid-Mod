@@ -24,6 +24,12 @@
             name="trafficDetail"
             type="String" />
         <variable
+            name="trafficTitle"
+            type="String" />
+        <variable
+            name="trafficSubtext"
+            type="String" />
+        <variable
             name="colorClashStarted"
             type="int" />
         <variable
@@ -123,7 +129,7 @@
                     android:theme="@style/AppThemeDark"
                     app:cardBackgroundColor="@{clashRunning ? colorClashStarted : colorClashStopped}"
                     app:icon="@{clashRunning ? @drawable/ic_outline_check_circle : @drawable/ic_outline_not_interested}"
-                    app:subtext="@{clashRunning ? trafficDetail : @string/tap_to_start}"
+                    app:subtext="@{clashRunning ? trafficTitle : @string/tap_to_start}"
                     app:text="@{clashRunning ? @string/running : @string/stopped}" />
 
                 <com.github.kr328.clash.design.view.LargeActionCard

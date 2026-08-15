@@ -112,6 +112,21 @@ class ProxyView(
                     drawPath(path, paint)
                 }
 
+                // 选中高亮：品牌紫色描边，让当前节点一目了然
+                if (state.isSelected) {
+                    paint.reset()
+                    paint.style = Paint.Style.STROKE
+                    paint.strokeWidth = 2f
+                    paint.color = state.config.selectedStrokeColor
+                    paint.setShadowLayer(
+                        state.config.cardRadius,
+                        0f, 0f,
+                        state.config.selectedStrokeColor
+                    )
+
+                    drawPath(path, paint)
+                }
+
                 clipPath(path)
             }
         }

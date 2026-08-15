@@ -20,6 +20,9 @@ class ProxyViewConfig(val context: Context, var proxyLine: Int) {
     val selectedControl = context.resolveThemedColor(com.google.android.material.R.attr.colorOnPrimary)
     val selectedBackground = context.resolveThemedColor(com.google.android.material.R.attr.colorPrimary)
 
+    /** 选中节点高亮描边色（品牌紫） */
+    val selectedStrokeColor = context.resolveThemedColor(com.google.android.material.R.attr.colorPrimary)
+
     val unselectedControl = context.resolveThemedColor(com.google.android.material.R.attr.colorOnSurface)
     val unselectedBackground: Int
         get() = if (proxyLine==1) Color.TRANSPARENT else effectiveGlassBackground

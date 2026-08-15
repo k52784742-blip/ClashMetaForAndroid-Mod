@@ -7,6 +7,7 @@ import com.github.kr328.clash.design.databinding.AdapterProfileBinding
 import com.github.kr328.clash.design.model.ProfilePageState
 import com.github.kr328.clash.design.model.ProxyPageState
 import com.github.kr328.clash.design.ui.ObservableCurrentTime
+import com.github.kr328.clash.design.util.EntranceAnim
 import com.github.kr328.clash.design.util.layoutInflater
 import com.github.kr328.clash.service.model.Profile
 
@@ -48,6 +49,9 @@ class ProfileAdapter(
         binding.setMenu {
             onMenuClicked(current)
         }
+
+        // 列表项入场渐入动画
+        EntranceAnim.animate(binding.root, position)
     }
 
     override fun getItemCount(): Int {
