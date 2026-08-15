@@ -6,7 +6,6 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.view.View
 import com.github.kr328.clash.common.compat.getDrawableCompat
-import com.github.kr328.clash.design.store.UiStore
 
 class ProxyView(
     context: Context,
@@ -18,6 +17,18 @@ class ProxyView(
     }
 
     var state: ProxyViewState? = null
+        set(value) {
+            field = value
+            // 状态变化时触发重绘
+            shadowDirty = true
+            postInvalidateOnAnimation()
+        }
+
+    /** 阴影缓存脏标记：true 时需要重绘阴影层 */
+    private var shadowDirty = true
+    /** 代理组布局模式缓存 */
+    private var lastProxyLine = 0
+
     constructor(context: Context) : this(context, ProxyViewConfig(context, 2))
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val state = state ?: return super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -60,80 +71,77 @@ class ProxyView(
     override fun draw(canvas: Canvas) {
         val state = state ?: return super.draw(canvas)
 
-        if (state.update(false))
-            postInvalidate()
-
         val width = width.toFloat()
         val height = height.toFloat()
-
         val paint = state.paint
 
+        // 背景填充（无阴影时直接绘制，避免离屏渲染开销）
         paint.reset()
-
         paint.color = state.background
         paint.style = Paint.Style.FILL
 
-        // draw background
-        canvas.apply {
-            if (state.config.proxyLine==1) {
-                drawRect(0f, 0f, width, height, paint)
-            } else {
-                val path = state.path
-
-                path.reset()
-
-                path.addRoundRect(
-                    state.config.layoutPadding,
-                    state.config.layoutPadding,
-                    width - state.config.layoutPadding,
-                    height - state.config.layoutPadding,
-                    state.config.cardRadius,
-                    state.config.cardRadius,
-                    Path.Direction.CW,
-                )
-
-                paint.setShadowLayer(
-                    state.config.cardRadius,
-                    state.config.cardOffset,
-                    state.config.cardOffset,
-                    state.config.shadow
-                )
-
-                drawPath(path, paint)
-
-                // 玻璃描边：给代理卡片画一圈高光描边（颜色非零时绘制，避免透明残留）
-                if (state.config.glassStroke != 0) {
-                    paint.reset()
-                    paint.style = Paint.Style.STROKE
-                    paint.strokeWidth = 1f
-                    paint.color = state.config.glassStroke
-                    paint.setShadowLayer(0f, 0f, 0f, 0)
-
-                    drawPath(path, paint)
-                }
-
-                // 选中高亮：品牌紫色描边，让当前节点一目了然
-                if (state.isSelected && state.config.selectedStrokeColor != 0) {
-                    paint.reset()
-                    paint.style = Paint.Style.STROKE
-                    paint.strokeWidth = 2f
-                    paint.color = state.config.selectedStrokeColor
-                    paint.setShadowLayer(
-                        state.config.cardRadius * 0.6f,
-                        0f, 0f,
-                        state.config.selectedStrokeColor
-                    )
-
-                    drawPath(path, paint)
-
-                    // 清除阴影，避免残留到后续文本绘制
-                    paint.setShadowLayer(0f, 0f, 0f, 0)
-                }
-
-                clipPath(path)
-            }
+        if (state.config.proxyLine == 1) {
+            // 单列模式：纯色矩形，无需路径/阴影
+            canvas.drawRect(0f, 0f, width, height, paint)
+            super.draw(canvas)
+            return
         }
 
+        // 多列模式：圆角卡片路径
+        val path = state.path
+        path.reset()
+        path.addRoundRect(
+            state.config.layoutPadding,
+            state.config.layoutPadding,
+            width - state.config.layoutPadding,
+            height - state.config.layoutPadding,
+            state.config.cardRadius,
+            state.config.cardRadius,
+            Path.Direction.CW,
+        )
+
+        // 阴影层：只在脏时重绘
+        if (shadowDirty) {
+            paint.setShadowLayer(
+                state.config.cardRadius,
+                state.config.cardOffset,
+                state.config.cardOffset,
+                state.config.shadow
+            )
+            shadowDirty = false
+        }
+
+        // 绘制卡片背景
+        canvas.drawPath(path, paint)
+
+        // 玻璃描边
+        if (state.config.glassStroke != 0) {
+            paint.reset()
+            paint.style = Paint.Style.STROKE
+            paint.strokeWidth = 1f
+            paint.color = state.config.glassStroke
+            canvas.drawPath(path, paint)
+        }
+
+        // 选中高亮描边
+        if (state.isSelected && state.config.selectedStrokeColor != 0) {
+            paint.reset()
+            paint.style = Paint.Style.STROKE
+            paint.strokeWidth = 2f
+            paint.color = state.config.selectedStrokeColor
+            paint.setShadowLayer(
+                state.config.cardRadius * 0.6f,
+                0f, 0f,
+                state.config.selectedStrokeColor
+            )
+            canvas.drawPath(path, paint)
+            paint.setShadowLayer(0f, 0f, 0f, 0)
+        }
+
+        // 裁剪到圆角区域（避免子 View 溢出）
+        canvas.clipPath(path)
+
+        // 绘制子 View（文本内容）
         super.draw(canvas)
     }
 

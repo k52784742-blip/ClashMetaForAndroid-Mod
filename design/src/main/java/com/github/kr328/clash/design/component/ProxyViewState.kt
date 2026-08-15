@@ -1,13 +1,10 @@
 package com.github.kr328.clash.design.component
 
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
 import com.github.kr328.clash.core.model.Proxy
 import com.github.kr328.clash.design.model.ProxyState
-import kotlin.math.absoluteValue
-import kotlin.math.max
 
 class ProxyViewState(
     val config: ProxyViewConfig,
@@ -34,10 +31,8 @@ class ProxyViewState(
     val isSelected: Boolean
         get() = selected
 
-    private var lastFrameTime = System.currentTimeMillis()
-
+    /** 更新视图状态，返回是否需要重绘 */
     fun update(snap: Boolean): Boolean {
-        val frameTime = System.currentTimeMillis()
         var invalidate = false
 
         if (proxy.isGroup) {
@@ -72,59 +67,12 @@ class ProxyViewState(
 
         controls = if (selected) config.selectedControl else config.unselectedControl
 
-        if (snap) {
-            background = if (selected) config.selectedBackground else config.unselectedBackground
-        } else {
-            val target = if (selected) config.selectedBackground else config.unselectedBackground
-
-            if (background != target) {
-                val sa = Color.alpha(background)
-                val sr = Color.red(background)
-                val sg = Color.green(background)
-                val sb = Color.blue(background)
-
-                val ta = Color.alpha(target)
-                val tr = Color.red(target)
-                val tg = Color.green(target)
-                val tb = Color.blue(target)
-
-                val da = ta - sa
-                val dr = tr - sr
-                val dg = tg - sg
-                val db = tb - sb
-
-                val max = max(
-                    da.absoluteValue,
-                    max(
-                        dr.absoluteValue,
-                        max(
-                            dg.absoluteValue,
-                            db.absoluteValue
-                        )
-                    )
-                )
-
-                val frameOffset = frameTime - lastFrameTime
-
-                val colorOffset = (frameOffset / max.toFloat().coerceAtLeast(0.001f))
-                    .coerceIn(0.0f, 1.0f)
-
-                background = if (colorOffset > 0.999f) {
-                    target
-                } else {
-                    Color.argb(
-                        (sa + da * colorOffset).toInt(),
-                        (sr + dr * colorOffset).toInt(),
-                        (sg + dg * colorOffset).toInt(),
-                        (sb + db * colorOffset).toInt()
-                    )
-                }
-
-                invalidate = true
-            }
+        // 背景切换：不用帧动画插值，直接跳转（减少每帧 postInvalidate 开销）
+        val target = if (selected) config.selectedBackground else config.unselectedBackground
+        if (background != target) {
+            background = target
+            invalidate = true
         }
-
-        lastFrameTime = frameTime
 
         return invalidate
     }
