@@ -125,6 +125,9 @@ class ProxyView(
                     )
 
                     drawPath(path, paint)
+
+                    // 清除阴影，避免残留到后续文本绘制
+                    paint.setShadowLayer(0f, 0f, 0f, 0)
                 }
 
                 clipPath(path)
