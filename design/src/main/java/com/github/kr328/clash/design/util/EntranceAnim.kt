@@ -1,6 +1,7 @@
 package com.github.kr328.clash.design.util
 
 import android.view.View
+import com.github.kr328.clash.design.R
 
 /**
  * 列表项入场动画：滚动时新 item 淡入上浮，提升界面质感。
